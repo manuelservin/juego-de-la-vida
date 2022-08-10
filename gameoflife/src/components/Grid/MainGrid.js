@@ -31,7 +31,7 @@ const generateCells =(rows,cols, arr,dragged) => {
 const MainGrid = () => {
     const { data, cols, rows } = useContext(AppContext);
     const [dragged, setDragged] = useState(false);
-    console.log(dragged)
+    console.log(data,cols,rows)
 
   const cellsArray = generateCells(rows, cols, data.grid, dragged);
 

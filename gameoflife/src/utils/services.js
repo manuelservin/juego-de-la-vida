@@ -54,4 +54,18 @@ const handleSelect = ({grid, generation}, row, col, updaterFunction) => {
   });
 };
 
-export { play, handleSelect };
+
+const gridPattern = (baseState,Coordinates, updater) => {
+  const newGrid = produce(baseState.grid, (newState) => {
+    Coordinates.forEach(([x, y]) => {
+      newState[x][y] = true;
+    });
+  });
+
+  updater({
+    generation: 0,
+    grid: newGrid
+  });
+};
+
+export { play, handleSelect, gridPattern };

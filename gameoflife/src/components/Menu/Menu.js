@@ -1,12 +1,17 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
-import { operations } from "../../utils/constants";
-import { play } from "../../utils/services";
+import { operations, patterns } from "../../utils/constants";
+import { gridPattern, play } from "../../utils/services";
 import Button from "../Button/Button";
 
 import {useSaveStatus} from '../../hooks/useSaveStatus'
+import Custom from "../Custom/Custom";
+import Dropdown from "../Dropdown/Dropdown";
 
+
+
+console.log(patterns)
 
 const Menu = () => {
   const {
@@ -22,17 +27,10 @@ const Menu = () => {
   const [speed, setSpeed] = useState(2);
   const [active, setActive] = useState(false);
   const [step, setStep] = useState(false);
- 
+  const [pattern, setPattern] = useState("");
 
   const [savedStatus, setSavedStatus] = useSaveStatus("savedStatus", {});
-
-
-
-
-console.log(speed)
-
-
-
+  
 
   // Play
   useEffect(() => {
@@ -71,6 +69,36 @@ console.log(speed)
     setData(savedStatus);
   };
 
+  const selectedPattern = (pattern) => {
+     setPattern(pattern);
+    console.log(pattern)
+    switch (pattern) {
+      case 'spaceships':
+       
+        gridPattern(data, patterns.spaceships, setData);
+
+        break;
+        case 'oscillators':
+         
+          gridPattern(data, patterns.oscillators, setData);
+  
+          break;
+          case 'still':
+          
+            gridPattern(data, patterns.still, setData);
+    
+            break;
+      default:
+        generateEmptyGrid();
+
+       
+    
+  };
+
+
+  }
+ 
+
   return (
     <div>
        
@@ -98,6 +126,24 @@ console.log(speed)
         >
           Ultimo patrón
         </Button>
+      
+          <Dropdown
+          
+            name="pattern"
+            selectedPattern={selectedPattern}
+            selected={pattern}
+
+          />
+
+          <Custom  setData = {setData}
+    rows={rows}
+    setRows={setRows}
+    cols={cols}
+    setCols= {setCols} 
+    generateEmptyGrid ={generateEmptyGrid}
+    />
+    
+
         <input type='range'
               
                 style={{ width: "20%" }}
