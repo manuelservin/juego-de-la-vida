@@ -5,6 +5,8 @@ import { operations } from "../../utils/constants";
 import { play } from "../../utils/services";
 import Button from "../Button/Button";
 
+import {useSaveStatus} from '../../hooks/useSaveStatus'
+
 
 const Menu = () => {
   const {
@@ -20,6 +22,8 @@ const Menu = () => {
   const [speed, setSpeed] = useState("300");
   const [active, setActive] = useState(false);
   const [step, setStep] = useState(false);
+
+  const [savedStatus, setSavedStatus] = useSaveStatus("savedStatus", {});
 
 
   // Play
@@ -49,6 +53,16 @@ const Menu = () => {
     });
   };
 
+  // guardo la info en el localstorage
+  const handleDataStorage = () => {
+    setSavedStatus(data);
+  };
+
+  //Tomo del localStorage el ultimo patron guardado
+  const handleLoadLastPattern = () => {
+    setData(savedStatus);
+  };
+
   return (
     <div>
        
@@ -64,9 +78,18 @@ const Menu = () => {
         <Button  onClick={handleRestart}>
           Reiniciar
         </Button>
+        <Button
+          onClick={handleDataStorage}
+        >
+          Guardar
+        </Button>
 
-      
-
+        
+        <Button
+          onClick={handleLoadLastPattern}
+        >
+          Ultimo patrón
+        </Button>
         <h2>Generación # {data.generation}</h2>
 
 
