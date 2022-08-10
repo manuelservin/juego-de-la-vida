@@ -29,7 +29,7 @@ const Menu = () => {
 
 
 
-
+console.log(speed)
 
 
 
@@ -40,7 +40,7 @@ const Menu = () => {
     if (active) {
       interval = setInterval(() => {
         play(data, operations, setData, rows, cols);
-      }, 300 * speed);
+      }, 600 /speed);
     }
     return () => clearInterval(interval);
   }, [active, data, speed]);
@@ -99,10 +99,10 @@ const Menu = () => {
           Ultimo patrón
         </Button>
         <input type='range'
-                className="mt-2"
+              
                 style={{ width: "20%" }}
-                min={0}
-                max={4}
+                min={2}
+                max={6}
                 step={1}
                 value={speed}
                 onChange={(e) => setSpeed(e.target.value)}
