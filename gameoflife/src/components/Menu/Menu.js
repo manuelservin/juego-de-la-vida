@@ -19,11 +19,19 @@ const Menu = () => {
     generateEmptyGrid,
   } = useContext(AppContext);
 
-  const [speed, setSpeed] = useState("300");
+  const [speed, setSpeed] = useState(2);
   const [active, setActive] = useState(false);
   const [step, setStep] = useState(false);
+ 
 
   const [savedStatus, setSavedStatus] = useSaveStatus("savedStatus", {});
+
+
+
+
+
+
+
 
 
   // Play
@@ -32,7 +40,7 @@ const Menu = () => {
     if (active) {
       interval = setInterval(() => {
         play(data, operations, setData, rows, cols);
-      }, speed);
+      }, 300 * speed);
     }
     return () => clearInterval(interval);
   }, [active, data, speed]);
@@ -90,6 +98,15 @@ const Menu = () => {
         >
           Ultimo patrón
         </Button>
+        <input type='range'
+                className="mt-2"
+                style={{ width: "20%" }}
+                min={0}
+                max={4}
+                step={1}
+                value={speed}
+                onChange={(e) => setSpeed(e.target.value)}
+            />
         <h2>Generación # {data.generation}</h2>
 
 
