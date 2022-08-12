@@ -2,16 +2,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { operations, patterns } from "../../utils/constants";
-import { gridPattern, play } from "../../utils/services";
+import { gridPattern, play} from "../../utils/services";
 import Button from "../Button/Button";
-
+import { FiPause, FiPlay ,FiRefreshCcw, FiSave } from "react-icons/fi";
+import {AiOutlineReload} from 'react-icons/ai'
+import {GrFormNextLink} from 'react-icons/gr'
 import {useSaveStatus} from '../../hooks/useSaveStatus'
 import Custom from "../Custom/Custom";
 import Dropdown from "../Dropdown/Dropdown";
+import { MenuContainer, Navbar, Step } from "./MenuStyles";
 
 
 
-console.log(patterns)
+
 
 const Menu = () => {
   const {
@@ -26,11 +29,31 @@ const Menu = () => {
 
   const [speed, setSpeed] = useState(2);
   const [active, setActive] = useState(false);
+  
   const [step, setStep] = useState(false);
-  const [pattern, setPattern] = useState("");
+  const [pattern, setPattern] = useState();
+
 
   const [savedStatus, setSavedStatus] = useSaveStatus("savedStatus", {});
-  
+
+
+const updateBoardDimensions = () => {
+  setCols(Math.floor((window.innerWidth * 0.75) / 18));
+  setRows(Math.floor((window.innerHeight * 0.65) / 18));
+  setData({
+    generation: 0,
+    grid: generateEmptyGrid(Math.floor((window.innerHeight * 0.65) / 18), Math.floor((window.innerWidth * 0.75) / 18))
+  })
+};
+console.log(Math.floor((window.innerWidth * 0.85) / 18))
+console.log(Math.floor((window.innerWidth * 0.75) / 18))
+
+useEffect(() => {
+  updateBoardDimensions();
+  window.addEventListener("resize", updateBoardDimensions, false);
+}, [updateBoardDimensions]);
+
+
 
   // Play
   useEffect(() => {
@@ -41,7 +64,7 @@ const Menu = () => {
       }, 600 /speed);
     }
     return () => clearInterval(interval);
-  }, [active, data, speed]);
+  }, [active, data, speed, ]);
 
   // Steps
   useEffect(() => {
@@ -71,7 +94,7 @@ const Menu = () => {
 
   const selectedPattern = (pattern) => {
      setPattern(pattern);
-    console.log(pattern)
+  
     switch (pattern) {
       case 'spaceships':
        
@@ -100,31 +123,33 @@ const Menu = () => {
  
 
   return (
-    <div>
-       
-      <Button  onClick={() => setActive(true)}>
-          Iniciar
-        </Button>
+    <MenuContainer>
+
+      <Navbar>
+
+       <Button
+                    onClick={() => setActive(!active)}
+                >
+                    {active ? <FiPause /> : <FiPlay />}{" "}
+                   
+                </Button>
         <Button  onClick={() => setStep(true)}>
-          Next
-        </Button>
-        <Button  onClick={() => setActive(false)}>
-          Detener
+          <GrFormNextLink/>
         </Button>
         <Button  onClick={handleRestart}>
-          Reiniciar
+        <FiRefreshCcw/>
         </Button>
         <Button
           onClick={handleDataStorage}
         >
-          Guardar
+           < FiSave/> Save
         </Button>
 
         
         <Button
           onClick={handleLoadLastPattern}
         >
-          Ultimo patrón
+         <AiOutlineReload/>
         </Button>
       
           <Dropdown
@@ -141,22 +166,16 @@ const Menu = () => {
     cols={cols}
     setCols= {setCols} 
     generateEmptyGrid ={generateEmptyGrid}
+    speed={speed}
+    setSpeed = {setSpeed}
     />
-    
+      </Navbar>
+       
 
-        <input type='range'
-              
-                style={{ width: "20%" }}
-                min={2}
-                max={6}
-                step={1}
-                value={speed}
-                onChange={(e) => setSpeed(e.target.value)}
-            />
-        <h2>Generación # {data.generation}</h2>
+        <Step>Generación # {data.generation}</Step>
 
 
-    </div>
+    </MenuContainer>
   )
 }
 

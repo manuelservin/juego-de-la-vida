@@ -5,6 +5,8 @@ import produce from "immer";
 // updaterFunction = funcion actualizadora del estado.
 // rows y cols son los limites de la grilla
 
+
+
 const play = ({grid, generation}, arrayOperations, updaterFunction, rows, cols) => {
   // Se utiliza produce, porque crea una copia del state la cual se puede mutar
   const newGrid = produce(grid, (gridCopy) => {
@@ -68,4 +70,20 @@ const gridPattern = (baseState,Coordinates, updater) => {
   });
 };
 
-export { play, handleSelect, gridPattern };
+
+const  updateBoard = ( rows, cols ,{columns, row})=>{
+
+ if (cols < columns) return
+ if (rows < row) return
+
+ return ({newCol:columns,
+  newRow: row}
+  )
+
+
+}
+
+
+
+
+export { play, handleSelect, gridPattern, updateBoard};

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import DropdownOption from './DropdownOption';
+import { Select } from './DropdownStyles';
 
 const options = [
   { value: 'oscillators', label: 'oscillators' },
@@ -12,10 +13,9 @@ const Dropdown = ({pattern, selectedPattern}) => {
   const handleChange = (newValue) =>{
     selectedPattern(newValue)
   }
-  console.log(pattern)
   return (
     <div>
-        <select 
+        <Select 
         onChange={(e) => handleChange(e.target.value)}
         value={pattern}
       >
@@ -23,7 +23,7 @@ const Dropdown = ({pattern, selectedPattern}) => {
        {options.map((el)=>(
         <DropdownOption key={el.value} value={el.value} label={el.label}/>
        ))}
-      </select>
+      </Select>
 
 
 

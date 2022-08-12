@@ -1,26 +1,31 @@
 import React from 'react'
 import { useState } from 'react'
 import Popup from 'reactjs-popup'
+import {IoMdOptions} from 'react-icons/io'
+import Button from '../Button/Button'
 import { Container, Modal, ModalBody, ModalClose, ModalTitle } from './CustomStyles'
 const Custom = ({setData,
     rows,
     setRows,
     cols,
-    setCols, generateEmptyGrid}) => {
+    setCols, 
+    generateEmptyGrid,
+    speed,
+    setSpeed,
+  
+  }) => {
 
   const [updateGrid, setUpdateGrid] = useState({
     rows,
     cols
   })
 
-  console.log(updateGrid)
 
   const handleChange = (e) =>{
     setUpdateGrid({...updateGrid, [e.target.name]: e.target.value})
   }
 
   const apply = ({rows,cols})=>{
-    console.log(rows,cols)
     setData({
         generation: 0,
         grid: generateEmptyGrid(Number(rows), Number(cols))
@@ -31,7 +36,7 @@ const Custom = ({setData,
   return (
 
     <Popup
-    trigger={<button className="button"> Open Modal </button>}
+    trigger={<Button > <IoMdOptions/> </Button>}
     modal
     nested
   >
@@ -48,6 +53,18 @@ const Custom = ({setData,
 
 <input type="number" name="rows" min='5' max='80' placeholder='Rows' onChange={handleChange}/>
 <input type="number" name="cols" min='5' max='80' placeholder='Columns' onChange={handleChange} />
+
+<label >Speed: </label>
+
+<input type='range'
+              
+                style={{ width: "100%" }}
+                min={2}
+                max={6}
+                step={1}
+                value={speed}
+                onChange={(e) => setSpeed(e.target.value)}
+            />
 
 <button
             onClick={() => {

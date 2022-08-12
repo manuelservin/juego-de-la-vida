@@ -1,4 +1,4 @@
-import React, { useState, createContext } from "react";
+import React, { useState, createContext, useEffect } from "react";
 
 export const AppContext = createContext();
 
@@ -30,6 +30,8 @@ export const AppProvider = (props) => {
   const [cols, setCols] = useState(50);
 
   const [rows, setRows] = useState(30);
+  
+
 
   return (
     <AppContext.Provider
@@ -40,7 +42,7 @@ export const AppProvider = (props) => {
         setCols,
         rows,
         setRows,
-        generateEmptyGrid
+        generateEmptyGrid,
       }}
     >
       {props.children}

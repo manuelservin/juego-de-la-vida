@@ -1,6 +1,6 @@
 import React from "react"
-import MainGrid from "./components/Grid/MainGrid"
-import Menu from "./components/Menu/Menu"
+import Home from "./pages/Home/Home"
+
 
 
 function App() {
@@ -9,8 +9,8 @@ function App() {
  
   return (
     <>
-    <Menu/>
-    <MainGrid/>
+    <Home/>
+    
     </>
   )
 }

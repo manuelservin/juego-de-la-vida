@@ -1,13 +1,17 @@
-import React, { useContext } from 'react'
+import React from 'react'
+import { Option } from './DropdownStyles';
 
 
 const DropdownOption = ({value, label}) => {
    
     return (
-        <option  value={value} >
+        <Option  value={value} >
          {label}
-        </option>
+        </Option>
       );
 }
 
 export default DropdownOption
+
+
+
