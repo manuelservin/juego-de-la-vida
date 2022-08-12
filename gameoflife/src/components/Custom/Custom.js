@@ -16,9 +16,11 @@ const Custom = ({setData,
   }) => {
 
   const [updateGrid, setUpdateGrid] = useState({
-    rows,
-    cols
+    rows: 0,
+    cols: 0
   })
+
+  console.log(updateGrid)
 
 
   const handleChange = (e) =>{
