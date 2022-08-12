@@ -25,7 +25,11 @@ const Custom = ({setData,
     setUpdateGrid({...updateGrid, [e.target.name]: e.target.value})
   }
 
+ 
   const apply = ({rows,cols})=>{
+    console.log(rows,cols)
+
+    if(rows <= 1 || cols <= 1) return;
     setData({
         generation: 0,
         grid: generateEmptyGrid(Number(rows), Number(cols))
@@ -60,7 +64,7 @@ const Custom = ({setData,
               
                 style={{ width: "100%" }}
                 min={2}
-                max={6}
+                max={7}
                 step={1}
                 value={speed}
                 onChange={(e) => setSpeed(e.target.value)}
@@ -72,7 +76,7 @@ const Custom = ({setData,
               close();
             }}
           >
-            aplicar
+            apply
           </button>
 
           </ModalBody>

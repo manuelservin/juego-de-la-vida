@@ -71,19 +71,17 @@ const gridPattern = (baseState,Coordinates, updater) => {
 };
 
 
-const  updateBoard = ( rows, cols ,{columns, row})=>{
-
- if (cols < columns) return
- if (rows < row) return
-
- return ({newCol:columns,
-  newRow: row}
-  )
-
-
-}
+const updateBoardDimensions = (setRows, setCols, setData, generateEmptyGrid) => {
+  setCols(Math.floor((window.innerWidth * 0.75) / 18));
+  setRows(Math.floor((window.innerHeight * 0.65) / 18));
+  setData({
+    generation: 0,
+    grid: generateEmptyGrid(Math.floor((window.innerHeight * 0.65) / 18), Math.floor((window.innerWidth * 0.75) / 18))
+  })
+};
 
 
 
 
-export { play, handleSelect, gridPattern, updateBoard};
+
+export { play, handleSelect, gridPattern, updateBoardDimensions};

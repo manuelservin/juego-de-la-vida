@@ -1,15 +1,15 @@
 import React from 'react'
+import Footer from '../../components/Footer/Footer'
 import MainGrid from '../../components/Grid/MainGrid'
 import Menu from '../../components/Menu/Menu'
-import { HomeContainer, Title } from './HomeStyles'
+import { HomeContainer} from './HomeStyles'
 
 const Home = () => {
   return (
     <HomeContainer>
-        <Title> Game of life</Title>
         <Menu/>
     <MainGrid/>
-
+    <Footer/>
     </ HomeContainer>
   )
 }

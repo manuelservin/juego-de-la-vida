@@ -19,7 +19,7 @@ const Dropdown = ({pattern, selectedPattern}) => {
         onChange={(e) => handleChange(e.target.value)}
         value={pattern}
       >
-         <option value="" selected disabled hidden>Patrón</option>
+         <option value="" selected disabled hidden>Pattern</option>
        {options.map((el)=>(
         <DropdownOption key={el.value} value={el.value} label={el.label}/>
        ))}

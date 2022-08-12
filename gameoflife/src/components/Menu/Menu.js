@@ -2,17 +2,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { operations, patterns } from "../../utils/constants";
-import { gridPattern, play} from "../../utils/services";
+import { gridPattern, play, updateBoardDimensions} from "../../utils/services";
 import Button from "../Button/Button";
 import { FiPause, FiPlay ,FiRefreshCcw, FiSave } from "react-icons/fi";
 import {AiOutlineReload} from 'react-icons/ai'
-import {GrFormNextLink} from 'react-icons/gr'
+import {MdOutlineNavigateNext} from 'react-icons/md'
 import {useSaveStatus} from '../../hooks/useSaveStatus'
 import Custom from "../Custom/Custom";
 import Dropdown from "../Dropdown/Dropdown";
 import { MenuContainer, Navbar, Step } from "./MenuStyles";
-
-
 
 
 
@@ -29,29 +27,14 @@ const Menu = () => {
 
   const [speed, setSpeed] = useState(2);
   const [active, setActive] = useState(false);
-  
   const [step, setStep] = useState(false);
   const [pattern, setPattern] = useState();
-
-
   const [savedStatus, setSavedStatus] = useSaveStatus("savedStatus", {});
 
-
-const updateBoardDimensions = () => {
-  setCols(Math.floor((window.innerWidth * 0.75) / 18));
-  setRows(Math.floor((window.innerHeight * 0.65) / 18));
-  setData({
-    generation: 0,
-    grid: generateEmptyGrid(Math.floor((window.innerHeight * 0.65) / 18), Math.floor((window.innerWidth * 0.75) / 18))
-  })
-};
-console.log(Math.floor((window.innerWidth * 0.85) / 18))
-console.log(Math.floor((window.innerWidth * 0.75) / 18))
-
 useEffect(() => {
-  updateBoardDimensions();
+  updateBoardDimensions(setRows, setCols, setData, generateEmptyGrid);
   window.addEventListener("resize", updateBoardDimensions, false);
-}, [updateBoardDimensions]);
+}, []);
 
 
 
@@ -73,6 +56,7 @@ useEffect(() => {
       setStep(false);
     }
   }, [step]);
+
 
   const handleRestart = () => {
     setActive(false);
@@ -134,7 +118,7 @@ useEffect(() => {
                    
                 </Button>
         <Button  onClick={() => setStep(true)}>
-          <GrFormNextLink/>
+          <MdOutlineNavigateNext/>
         </Button>
         <Button  onClick={handleRestart}>
         <FiRefreshCcw/>
@@ -142,7 +126,7 @@ useEffect(() => {
         <Button
           onClick={handleDataStorage}
         >
-           < FiSave/> Save
+           < FiSave/> 
         </Button>
 
         
@@ -169,10 +153,13 @@ useEffect(() => {
     speed={speed}
     setSpeed = {setSpeed}
     />
+
+    
+
       </Navbar>
        
 
-        <Step>Generación # {data.generation}</Step>
+        <Step>Step # {data.generation}</Step>
 
 
     </MenuContainer>
