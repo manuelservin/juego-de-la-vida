@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import DropdownOption from './DropdownOption';
 import { Select } from './DropdownStyles';
 
@@ -18,8 +18,10 @@ const Dropdown = ({pattern, selectedPattern}) => {
         <Select 
         onChange={(e) => handleChange(e.target.value)}
         value={pattern}
+        defaultValue={'default'}
+
       >
-         <option value="" selected disabled hidden>Pattern</option>
+         <option value="default"  disabled hidden>Pattern</option>
        {options.map((el)=>(
         <DropdownOption key={el.value} value={el.value} label={el.label}/>
        ))}

@@ -11,6 +11,7 @@ color: #fff;
 font-size: 17px;
 
 border-radius: 3px;
+transition: all 0.3s ease;
 
 
 

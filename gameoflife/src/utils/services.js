@@ -1,4 +1,7 @@
 import produce from "immer";
+import Cell from '../components/Cell/Cell'
+
+//Separo las funciones en un archivo separado para mayor legibilidad
 //utilizo esta libreria para ayudarme a no mutar el estado
 
 // arrayOperations = Son numeros que se van a sumar o restar para generar coordenadas
@@ -6,9 +9,45 @@ import produce from "immer";
 // rows y cols son los limites de la grilla
 
 
+const generateCells =(rows,cols, arr,dragged) => {
+  
+  let grid = [];
+
+//Hago la grilla visible
+  for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols; j++) {
+    
+        let cellId = `${i}_${j}`;
+        // utilizo booleano para conocer su estado
+        
+        grid.push(
+          <Cell key={cellId} 
+          {...{
+            row: i,
+            col:j,
+            isAlive: arr && arr[i][j] ? 1 : 0,
+            dragged,
+           
+        }
+      }
+          
+          />
+        );
+      }
+    }
+    
+  
+    return grid;
+  };
+
 
 const play = ({grid, generation}, arrayOperations, updaterFunction, rows, cols) => {
   // Se utiliza produce, porque crea una copia del state la cual se puede mutar
+  const alive= ready(grid);
+
+  
+  if(alive === 0) return;
+
   const newGrid = produce(grid, (gridCopy) => {
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols; j++) {
@@ -36,6 +75,8 @@ const play = ({grid, generation}, arrayOperations, updaterFunction, rows, cols) 
       });
 
   // se actualiza el state manualmente
+  
+  
   updaterFunction({
     generation: generation + 1,
     grid: newGrid
@@ -57,10 +98,10 @@ const handleSelect = ({grid, generation}, row, col, updaterFunction) => {
 };
 
 
-const gridPattern = (baseState,Coordinates, updater) => {
-  const newGrid = produce(baseState.grid, (newState) => {
+const gridPattern = ({grid},Coordinates, updater) => {
+  const newGrid = produce(grid, (newState) => {
     Coordinates.forEach(([x, y]) => {
-      newState[x][y] = true;
+      newState[x][y] = 1;
     });
   });
 
@@ -72,11 +113,14 @@ const gridPattern = (baseState,Coordinates, updater) => {
 
 
 const updateBoardDimensions = (setRows, setCols, setData, generateEmptyGrid) => {
-  setCols(Math.floor((window.innerWidth * 0.75) / 18));
-  setRows(Math.floor((window.innerHeight * 0.65) / 18));
+
+  let maxCols= Math.floor((window.innerWidth * 0.75) / 18)
+  let maxRows= Math.floor((window.innerHeight * 0.65) / 18)
+  setCols(maxCols);
+  setRows(maxRows);
   setData({
     generation: 0,
-    grid: generateEmptyGrid(Math.floor((window.innerHeight * 0.65) / 18), Math.floor((window.innerWidth * 0.75) / 18))
+    grid: generateEmptyGrid(maxRows, maxCols)
   })
 };
 
@@ -87,7 +131,7 @@ const ready = (array)=>{
   let alive= 0
   for(let i=0; i< length; i++){
     if(newArray[i] === 1){
-      alive = alive +1;
+      alive++;
     }
   }
   return alive;
@@ -99,4 +143,5 @@ const ready = (array)=>{
 
 
 
-export { play, handleSelect, gridPattern, updateBoardDimensions, ready};
+
+export { play, generateCells ,handleSelect, gridPattern, updateBoardDimensions, ready};

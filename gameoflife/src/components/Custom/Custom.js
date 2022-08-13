@@ -4,15 +4,15 @@ import Popup from 'reactjs-popup'
 import {IoMdOptions} from 'react-icons/io'
 import Button from '../Button/Button'
 import { Container, Modal, ModalBody, ModalClose, ModalTitle } from './CustomStyles'
+
+
 const Custom = ({setData,
-    rows,
     setRows,
-    cols,
     setCols, 
     generateEmptyGrid,
     speed,
     setSpeed,
-  
+
   }) => {
 
   const [updateGrid, setUpdateGrid] = useState({
@@ -54,6 +54,7 @@ const Custom = ({setData,
           <ModalBody>
 
 <input type="number" name="rows" min='5' max='80' placeholder='Rows' onChange={handleChange}/>
+
 <input type="number" name="cols" min='5' max='80' placeholder='Columns' onChange={handleChange} />
 
 <label >Speed: </label>
@@ -68,14 +69,14 @@ const Custom = ({setData,
                 onChange={(e) => setSpeed(e.target.value)}
             />
 
-<button
+<Button
             onClick={() => {
               apply(updateGrid)
               close();
             }}
           >
             apply
-          </button>
+          </Button>
 
           </ModalBody>
 

@@ -37,10 +37,13 @@ useEffect(() => {
   window.addEventListener("resize", updateBoardDimensions, false);
 }, []);
 
-const init = (data) => {
-  console.log(data)
-  const alive= ready(data);
 
+
+
+const init = (data) => {
+  //check para ver si hay celulas vivas en el tablero para poder empezar
+
+  const alive= ready(data);
   if(alive === 0 && active ===false) {
     return toast.error('there must be live cells on the board!', {
       position: "top-right",
@@ -64,6 +67,7 @@ const init = (data) => {
     if (active) {
       interval = setInterval(() => {
         play(data, operations, setData, rows, cols);
+      
       }, 600 /speed);
     }
     return () => clearInterval(interval);
@@ -132,10 +136,10 @@ const init = (data) => {
        <Button
                     onClick={() => init(data.grid)}
                 >
-                    {active ? <FiPause /> : <FiPlay />}{" "}
+                    {active ? <FiPause /> : <FiPlay />}
                    
                 </Button>
-        <Button  onClick={() => setStep(true)}>
+        <Button   onClick={() => setStep(true)}> 
           <MdOutlineNavigateNext/>
         </Button>
         <Button  onClick={handleRestart}>
@@ -162,14 +166,17 @@ const init = (data) => {
 
           />
 
-          <Custom  setData = {setData}
-    rows={rows}
-    setRows={setRows}
-    cols={cols}
-    setCols= {setCols} 
-    generateEmptyGrid ={generateEmptyGrid}
-    speed={speed}
-    setSpeed = {setSpeed}
+          <Custom {...
+            {setData,
+            setRows,
+            setCols,
+            generateEmptyGrid,
+            speed,
+            setSpeed
+          
+          }
+
+          } 
     />
 
     
