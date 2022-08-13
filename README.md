@@ -21,4 +21,4 @@ All other live cells die in the next generation. Similarly, all other dead cells
 
 ## Learn More
 
-You can learn more about the game in  this[link](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
+You can learn more about the game in  this [link](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
