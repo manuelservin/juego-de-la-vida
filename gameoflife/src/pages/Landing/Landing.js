@@ -2,7 +2,7 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button'
 import Rules from '../../components/Rules/Rules';
-import { FiPlay } from "react-icons/fi";
+
 import { Title } from '../Home/HomeStyles';
 import { Img, LandingBody, LandingContainer } from './LandingStyles';
 
@@ -12,7 +12,7 @@ const Landing = () => {
     <LandingContainer>
     <LandingBody>
         
-    <Title className="home__title">Game of Life</Title>
+    <Title>Game of Life</Title>
 
   
 

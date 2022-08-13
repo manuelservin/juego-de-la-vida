@@ -49,7 +49,6 @@ const MainGrid = () => {
   const cellsArray = generateCells(rows, cols, data.grid, dragged);
 
 
-
   return (
     <Grid  
     onMouseDown={() => setDragged(true)}
@@ -57,7 +56,10 @@ const MainGrid = () => {
                 onMouseLeave={() => setDragged(false)}
     
     cols={cols} >
-      {cellsArray}
+      {cellsArray
+
+      
+      }
     </Grid>
   );
 }

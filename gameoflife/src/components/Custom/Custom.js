@@ -20,8 +20,6 @@ const Custom = ({setData,
     cols: 0
   })
 
-  console.log(updateGrid)
-
 
   const handleChange = (e) =>{
     setUpdateGrid({...updateGrid, [e.target.name]: e.target.value})
@@ -29,8 +27,6 @@ const Custom = ({setData,
 
  
   const apply = ({rows,cols})=>{
-    console.log(rows,cols)
-
     if(rows <= 1 || cols <= 1) return;
     setData({
         generation: 0,

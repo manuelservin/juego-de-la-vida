@@ -2,16 +2,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context/AppContext";
 import { operations, patterns } from "../../utils/constants";
-import { gridPattern, play, updateBoardDimensions} from "../../utils/services";
+import { gridPattern, play, ready, updateBoardDimensions} from "../../utils/services";
 import Button from "../Button/Button";
 import { FiPause, FiPlay ,FiRefreshCcw, FiSave } from "react-icons/fi";
+import {toast, ToastContainer} from 'react-toastify'
 import {AiOutlineReload} from 'react-icons/ai'
 import {MdOutlineNavigateNext} from 'react-icons/md'
 import {useSaveStatus} from '../../hooks/useSaveStatus'
 import Custom from "../Custom/Custom";
 import Dropdown from "../Dropdown/Dropdown";
 import { MenuContainer, Navbar, Step } from "./MenuStyles";
-
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Menu = () => {
@@ -36,11 +37,30 @@ useEffect(() => {
   window.addEventListener("resize", updateBoardDimensions, false);
 }, []);
 
+const init = (data) => {
+  console.log(data)
+  const alive= ready(data);
 
+  if(alive === 0 && active ===false) {
+    return toast.error('there must be live cells on the board!', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      });
+      
+  };
+  setActive(!active)
+
+}
 
   // Play
   useEffect(() => {
     let interval;
+
     if (active) {
       interval = setInterval(() => {
         play(data, operations, setData, rows, cols);
@@ -101,8 +121,6 @@ useEffect(() => {
        
     
   };
-
-
   }
  
 
@@ -112,7 +130,7 @@ useEffect(() => {
       <Navbar>
 
        <Button
-                    onClick={() => setActive(!active)}
+                    onClick={() => init(data.grid)}
                 >
                     {active ? <FiPause /> : <FiPlay />}{" "}
                    
@@ -161,7 +179,7 @@ useEffect(() => {
 
         <Step>Step # {data.generation}</Step>
 
-
+        <ToastContainer />
     </MenuContainer>
   )
 }

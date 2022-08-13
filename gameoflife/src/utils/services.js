@@ -80,8 +80,23 @@ const updateBoardDimensions = (setRows, setCols, setData, generateEmptyGrid) => 
   })
 };
 
+const ready = (array)=>{
+  let newArray = array.flat();
+  
+  let length = newArray.length;
+  let alive= 0
+  for(let i=0; i< length; i++){
+    if(newArray[i] === 1){
+      alive = alive +1;
+    }
+  }
+  return alive;
+
+}
 
 
 
 
-export { play, handleSelect, gridPattern, updateBoardDimensions};
+
+
+export { play, handleSelect, gridPattern, updateBoardDimensions, ready};
